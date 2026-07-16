@@ -1,4 +1,4 @@
-# LAB Firewall Rules
+# VLAN 50 - LAB Firewall Rules
 
 Subnet: 10.0.50.0/24, gateway 10.0.50.1. Disposable OS-testing VMs, dynamic DHCP pool `.50-.240`, short (1-4hr) leases per `IP_Assignment_Revised.md`. No static hosts. Rules are subnet-scoped, not per-host.
 

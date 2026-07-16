@@ -1,4 +1,4 @@
-# TRUSTED CLIENTS Firewall Rules
+# VLAN 60 - TRUSTED CLIENTS Firewall Rules
 
 Subnet: 10.0.60.0/24, gateway 10.0.60.1. Devices: Gaming PC (10.0.60.10, DHCP reservation), Personal Laptop, Work Laptop, Cellphone (dynamic DHCP `.50-.199`) per `IP_Assignment_Revised.md`.
 

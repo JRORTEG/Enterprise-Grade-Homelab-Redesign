@@ -1,4 +1,4 @@
-# MGMT Firewall Rules
+# VLAN 10 - MGMT Firewall Rules
 
 Subnet: 10.0.10.0/24, gateway 10.0.10.1. Devices: pfSense (.1), Proxmox host (.10), Netgear GS308E switch (.11).
 

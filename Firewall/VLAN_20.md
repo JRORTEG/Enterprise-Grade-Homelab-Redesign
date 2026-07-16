@@ -1,4 +1,4 @@
-# CORE Firewall Rules
+# VLAN 20 - CORE Firewall Rules
 
 Subnet: 10.0.20.0/24, gateway 10.0.20.1. Devices: TrueNAS (.10), Pi-hole (.53). No internet-facing exposure.
 

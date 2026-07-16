@@ -1,4 +1,4 @@
-# DMZ Firewall Rules
+# VLAN 40 - DMZ Firewall Rules
 
 Subnet: 10.0.40.0/24, gateway 10.0.40.1. Devices: Minecraft LXC (.10, Velocity+Paper), New Jellyfin (.11), nginx reverse proxy (.12), PiVPN (.13), Old Jellyfin (.15, pending decommission). Fully static, no DHCP.
 

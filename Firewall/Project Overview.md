@@ -1,3 +1,5 @@
+## Project Overview
+
 The primary objective of this project is to replace the home lab's permissive inter-VLAN routing with a strict, least-privilege ACL architecture. Instead of every VLAN reaching every other VLAN by default, each segment gets an explicit ruleset. If a connection isn't allow-listed, it doesn't happen. That's the zero-trust model applied directly to VLAN segmentation.
 
 ## Core Security Principles

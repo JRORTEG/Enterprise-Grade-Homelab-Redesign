@@ -1,4 +1,4 @@
-# GUEST/IoT Firewall Rules
+# VLAN 70 - GUEST/IoT Firewall Rules
 
 Subnet: 10.0.70.0/24, gateway 10.0.70.1. Recommended future addition per `IP_Assignment_Revised.md`. No devices, switch port, pfSense interface, or DHCP scope exist yet. Dynamic pool `.50-.199` once built. No static hosts, so rules are subnet-scoped, not per-host, same convention as `VLAN_50.md`.
 
