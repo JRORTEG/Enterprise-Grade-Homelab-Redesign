@@ -7,6 +7,7 @@
 ### 2. Backup Solution for Proxmox
 **Description:** Stand up a real backup solution for the Proxmox cluster, e.g. Proxmox Backup Server (dedicated or as a VM/LXC) targeting TrueNAS storage, with scheduled VM/LXC snapshots, retention policy, and a tested restore procedure. Currently no backup mechanism exists for any VM/LXC or Proxmox host config.
 **Benefit:** Closes the lab's single largest unrecoverable-data-loss risk (disk failure, ransomware, accidental deletion, botched upgrade); a required safety net before other risky in-progress work, including the pending Proxmox VE 8→9 upgrade (`Open Items.md` #15) and the Firewall/VPN redesigns, and a core enterprise ops practice for the resume.
+**Status:** Interim solution decided 2026-07-14 — dual-boot PBS on the Gaming PC with a dedicated local 2TB drive (not TrueNAS-targeted as originally described above). Budget-driven stopgap; see `MGMT/Proxmox/Backup Solution.md` and `Open Items.md` #18–19 for details and the planned revisit.
 
 ### 3. Enterprise VPN / Remote Access Redesign
 **Description:** Replace PiVPN (currently DMZ-hosted) with a purpose-built remote-access architecture that doesn't grant VPN clients DMZ-equivalent or unrestricted internal reach. Give connected clients their own dedicated subnet/zone, not the DMZ subnet, routed through pfSense under the same default-deny, least-privilege model used for every other VLAN, with explicitly scoped post-connect access instead of blanket internal reachability. Longer-term, integrate with the IAM project (Authentik/Keycloak) for SSO/MFA on VPN auth.

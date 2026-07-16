@@ -121,3 +121,17 @@ Modded backend switched from Paper to Fabric. Paper has native Velocity modern-f
 
 **Source:** `Firewall/VLAN 40.md`, rule 3 / `Firewall/WAN.md`, rule W3.
 **Resolve by:** decide and document what internal VLANs (if any) a connected WireGuard client should reach, then write the actual scope note in `VLAN_40.md` (or wherever it belongs) and fix the cross-reference.
+
+## 18. Firewall rule needed for Proxmox → PBS (Gaming PC) backup traffic
+
+Dual-boot PBS on the Gaming PC (`MGMT/Proxmox/Backup Solution.md`) needs Proxmox (10.0.10.10, VLAN 10) to reach PBS on VLAN 60 to push backup jobs. No existing rule permits this direction or port — `VLAN_10.md`/`VLAN_60.md` only cover Trusted Clients → Proxmox (TCP 8006/22), not Proxmox → Trusted Clients.
+
+**Source:** `MGMT/Proxmox/Backup Solution.md`, Firewall implications section.
+**Resolve by:** after PBS is installed and its port confirmed (default TCP 8007), add an outbound rule on `VLAN_10.md` and matching inbound rule on `VLAN_60.md` for Proxmox → PBS/Gaming PC.
+
+## 19. Dual-boot PBS backup solution is a budget-driven interim fix
+
+Decision to dual-boot PBS on the Gaming PC with a dedicated 2TB drive, manually booted on a routine basis, was made due to limited budget rather than being the ideal end state (dedicated always-on backup host).
+
+**Source:** User decision, 2026-07-14.
+**Resolve by:** once budget allows, replace with a dedicated/always-on PBS solution (possibly NAS-backed, targeting TrueNAS per the original `General.md` #2 vision) to remove the manual-trigger and single-location risks documented in `MGMT/Proxmox/Backup Solution.md`.

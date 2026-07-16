@@ -1,5 +1,5 @@
 # Security Home-Lab Projects
-*Gap-filling projects for the Junior Security Engineer skillset — all free or nearly free, all runnable on a standard Proxmox home lab.*
+*Gap-filling projects for the Junior Security Engineer skillset, all runnable on a standard Proxmox home lab.*
 
 ---
 
@@ -23,7 +23,7 @@
 
 ---
 
-## 2. EDR — LimaCharlie (Free Tier) or Wazuh FIM
+## 2. EDR — LimaCharlie or Wazuh FIM
 
 **What it covers**: EDR agent deployment, endpoint detection, alert triage, policy tuning
 

@@ -1,4 +1,4 @@
-# APPS Firewall Rules
+# VLAN 30 - APPS Firewall Rules
 
 Subnet: 10.0.30.0/24, gateway 10.0.30.1. Currently empty but reserved for future internal-only apps. This pass plans concretely around the anticipated first occupant: a Grafana + Prometheus + Loki monitoring stack, single all-in-one host, placeholder IP **10.0.30.10**.
 
