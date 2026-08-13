@@ -34,8 +34,9 @@ The table below is a documentation reference showing what traffic is permitted i
 | 15  | VLAN 10 | Pi-hole 10.0.20.53                               | TCP 80            | Web UI admin - destination-side doc at `VLAN_20.md` rule 11                    |
 | 16  | VLAN 10 | Pi-hole 10.0.20.53                               | TCP 22            | SSH admin - destination-side doc at `VLAN_20.md` rule 12                       |
 | 17  | VLAN 10 | all other internal VLANs (Apps, DMZ, Lab, Guest) | any               | Default-deny                                                                   |
+| 18  | VLAN 10 | PBS 10.0.60.15 (Main PC, temporary on Trusted Clients) | TCP 8007 | Push scheduled backup jobs to PBS - destination-side doc at `VLAN_60.md` rule 18 |
 
-Note on rule 17: Proxmox's own VM traffic into other VLANs rides the hypervisor's virtual bridges, not this L3 ACL, and is unaffected by this deny. Core (20) and Trusted Clients (60) are both excluded from this catch-all. They're covered by the explicit allow rules above (9, 13–16).
+Note on rule 17: Proxmox's own VM traffic into other VLANs rides the hypervisor's virtual bridges, not this L3 ACL, and is unaffected by this deny. Core (20) and Trusted Clients (60) are both excluded from this catch-all. They're covered by the explicit allow rules above (9, 13–16, 18).
 
 ## Temporary Lab access procedure | see `VLAN_50.md`
 

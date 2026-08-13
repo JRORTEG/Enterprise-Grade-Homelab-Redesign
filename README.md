@@ -33,7 +33,7 @@ The bulk of the security engineering work: replacing "allow all inter-VLAN traff
 - **NAT port-forwarding** for internet-facing DMZ services (Minecraft, WireGuard VPN, reverse-proxied web traffic), including auto-generated WAN filter rules, anti-spoofing (RFC1918/bogon filtering), and identification of the biggest open attack surface (an intentionally broad any/any rule for torrenting P2P traffic, flagged for future scoping).
 - **Temporary access procedures** using disabled aliases for one-off admin/debug access into locked-down VLANs, so nothing stays open between sessions.
 
-Start here: [`Firewall/Project Overview.md`](Firewall/Project%20Overview.md), the index and per-VLAN progress tracker linking to `VLAN_10.md` through `VLAN_70.md` and `WAN.md`.
+Start here: [`Firewall/Project Overview.md`](Project%20Overview.md), the index and per-VLAN progress tracker linking to `VLAN_10.md` through `VLAN_70.md` and `WAN.md`.
 
 ## Deployed services: DMZ
 

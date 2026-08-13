@@ -1,5 +1,4 @@
 # Security Home-Lab Projects
-*Gap-filling projects for the Junior Security Engineer skillset, all runnable on a standard Proxmox home lab.*
 
 ---
 
