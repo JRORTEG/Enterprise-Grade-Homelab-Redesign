@@ -1,6 +1,6 @@
 # VLAN 60 - TRUSTED CLIENTS Firewall Rules
 
-Subnet: 10.0.60.0/24, gateway 10.0.60.1. Devices: Gaming PC (10.0.60.10, DHCP reservation), Personal Laptop, Work Laptop, Cellphone (dynamic DHCP `.50-.199`) per `IP_Assignment_Revised.md`.
+Subnet: 10.0.60.0/24, gateway 10.0.60.1. Devices: Main PC (10.0.60.10, DHCP reservation), PBS (10.0.60.15, static — temporary, belongs on MGMT, see `Future-Planning/Open Items.md` #24), Personal Laptop, Work Laptop, Cellphone (dynamic DHCP `.50-.199`) per `IP_Assignment_Revised.md`.
 
 Default posture: deny all, explicit allow-list only. Per the ingress-interface principle, Trusted Clients is the traffic source for nearly all of its own rules, so this doc is the **authoritative source** for the Outbound table below. `VLAN_10.md`, `VLAN_20.md`, `VLAN_30.md`, and `VLAN_40.md` each carry destination-side documentation rows only, pointing back here.
 
@@ -10,6 +10,7 @@ Default posture: deny all, explicit allow-list only. Per the ingress-interface p
 |---|---|---|---|---|---|
 | 1 | Mgmt (10) | VLAN 60 | ICMP echo-request | Troubleshooting/diagnostics. Consistent with "Mgmt → all VLANs for administration" principle, scoped to ping only since client devices run no standing admin services | `VLAN_10.md` rule 13 |
 | 2 | any (WAN, all other internal VLANs) | VLAN 60 | any | Default-deny. No WAN-inbound rule at all. Any hosting needs (game servers, etc.) go in DMZ instead, not on client devices. Explicit logged deny rules may be added to each source interface tab for visibility. | (source interface tabs) |
+| 18 | Mgmt (10) Proxmox 10.0.10.10 | PBS 10.0.60.15 | TCP 8007 | Push scheduled backup jobs to PBS | `VLAN_10.md` rule 18 |
 
 ## Outbound from VLAN 60
 

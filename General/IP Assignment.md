@@ -40,7 +40,7 @@ Internal infrastructure services (DNS, storage). No internet-facing exposure.
 
 *Note: Pi-hole's `.53` deliberately breaks the addressing convention as a DNS-port mnemonic, kept intentionally.*
 
-**DHCP:** Static-only recommended. If a dynamic pool is ever needed for temporary core-service testing, reserve `.100 – .150`.
+**DHCP:** Static-only. If a dynamic pool is ever needed for temporary core-service testing, reserve `.100 – .150`.
 
 ---
 
@@ -56,14 +56,15 @@ Reserved for future **internal-only** applications (no internet exposure). Curre
 
 Internet-facing services only. Fully static, no DHCP. Firewall rules should default-deny any connection initiated from DMZ toward Mgmt, Core, Apps, Lab, or Trusted Clients.
 
-| Device                                                  | IP         | Notes                                                                                  |
-| ------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
-| Minecraft (Velocity proxy + Paper backends, single LXC) | 10.0.40.10 | Port-forwarded 25565                                                                   |
-| New Jellyfin                                            | 10.0.40.11 | Reverse-proxied for remote streaming                                                   |
-| nginx (reverse proxy LXC)                               | 10.0.40.12 | Fronts DMZ services                                                                    |
-| PiVPN                                                   | 10.0.40.13 | Internet-facing VPN endpoint                                                           |
-| Torrenting                                              | 10.0.40.14 | High-risk P2P traffic, isolated                                                        |
+| Device                                                  | IP         | Notes                                                                                 |
+| ------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------- |
+| Minecraft (Velocity proxy + Paper backends, single LXC) | 10.0.40.10 | Port-forwarded 25565                                                                  |
+| New Jellyfin                                            | 10.0.40.13 | Reverse-proxied for remote streaming                                                  |
+| nginx (reverse proxy LXC)                               | 10.0.40.12 | Fronts DMZ services                                                                   |
+| PiVPN                                                   | 10.0.40.11 | Internet-facing VPN endpoint                                                          |
+| Torrenting                                              | 10.0.40.14 | High-risk P2P traffic, isolated                                                       |
 | Old Jellyfin                                            | 10.0.40.15 | **Legacy, pending decommission** once migration to New Jellyfin is confirmed complete |
+| MusiQ                                                   | 10.0.40.16 |                                                                                       |
 
 **DHCP:** Disabled. Every DMZ host must be statically assigned so firewall rules can be written against known, fixed IPs.
 
@@ -73,8 +74,8 @@ Internet-facing services only. Fully static, no DHCP. Firewall rules should defa
 
 Sandbox for OS testing and disposable VMs. Isolated from production VLANs.
 
-| Device | IP |
-|---|---|
+| Device                     | IP   |
+| -------------------------- | ---- |
 | OS Testing (ephemeral VMs) | DHCP |
 
 **DHCP:** Dynamic pool `.50 – .240`, short lease time (1–4 hours) to accommodate frequent VM churn.
@@ -85,20 +86,23 @@ Sandbox for OS testing and disposable VMs. Isolated from production VLANs.
 
 New VLAN. End-user devices, separated from both management infrastructure and internet-facing services.
 
-| Device | IP |
-|---|---|
-| Gaming PC | 10.0.60.10 (DHCP reservation) |
-| Personal Laptop | DHCP |
-| Work Laptop | DHCP |
-| Cellphone | DHCP |
+| Device          | IP                            |
+| --------------- | ----------------------------- |
+| Main PC         | 10.0.60.10 (DHCP reservation) |
+| PBS (Proxmox Backup Server) | 10.0.60.15 (static) |
+| Personal Laptop | DHCP                          |
+| Work Laptop     | DHCP                          |
+| Cellphone       | DHCP                          |
 
-**DHCP:** Dynamic pool `.50 – .199`. Gaming PC gets a DHCP reservation at `.10` for consistent access (game hosting, remote desktop, file shares); other client devices remain fully dynamic.
+**DHCP:** Dynamic pool `.50 – .199`. Main PC gets a DHCP reservation at `.10` for consistent access (game hosting, remote desktop, file shares); other client devices remain fully dynamic.
+
+*Note: PBS dual-boots from the Main PC and doesn't belong here long-term — it's infrastructure control-plane and should sit on MGMT (VLAN 10). Parked on Trusted Clients temporarily since the Main PC has only one NIC. See `Future-Planning/Open Items.md` #24.*
 
 ---
 
-## VLAN 70: GUEST / IoT *(recommended future addition, no devices yet)*
+## VLAN 70: GUEST / IoT *(future addition, no devices yet)*
 
-Not yet implemented, but recommended to complete the segmentation model before adding any smart-home or guest-network devices.
+Not yet implemented, but planned to complete the segmentation model before adding any smart-home or guest-network devices.
 
 - Client isolation enabled (devices cannot see each other).
 - Internet-only egress, no route to any other VLAN.
