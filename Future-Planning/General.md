@@ -15,6 +15,7 @@
 ### 4. Hardware Upgrade - Switching and Access Points
 **Description:** Replace aging switch/AP hardware, starting with the Netgear GS308E. Its web management interface is HTTP-only (no HTTPS option), so switch admin credentials and session traffic cross the MGMT VLAN in cleartext. Select replacement switches/APs against explicit criteria: HTTPS-only (or HTTPS-capable) management, per-port VLAN tagging, PoE (for AP uplinks), and SNMP/syslog export for the future monitoring/SIEM stack.
 **Benefit:** Closes a live cleartext-credential exposure on core network infrastructure management; HTTPS-capable gear is a prerequisite for trusting the MGMT VLAN as a true control-plane boundary. New APs with proper multi-SSID/VLAN tagging also unblock the still-unbuilt GUEST/IoT VLAN 70, and syslog/SNMP export feeds directly into the Security Homelab Projects (#10) and Grafana (#11) work.
+**Status:** Switching portion complete. Cisco WS-C2960G-24TC-L racked, VLANs built, ports assigned, SSH access working, unused ports disabled. See `Hardware/Switch Upgrade.md` for the full implementation record. Access point replacement not yet started.
 
 ### 5. Internal DNS
 **Description:** Stand up split-horizon internal DNS (pfSense DNS Resolver + Pi-hole conditional forwarding, or a dedicated internal zone) so lab services resolve by hostname (e.g., `jellyfin.lab.local`) instead of hardcoded/ IPs.
@@ -48,3 +49,7 @@ See: [[Security_Homelab_Projects]]
 ### 12. Proxmox MCP Server (AI-Assisted Infrastructure Interaction)
 **Description:** Stand up an MCP (Model Context Protocol) server exposing the Proxmox API, so an AI agent system can query and manage VMs/LXCs, resource usage, and cluster state directly through conversation instead of the Proxmox web UI or manual CLI/API calls.
 **Benefit:** Lets AI-assisted workflows (troubleshooting, provisioning, status checks) interact with the hypervisor directly. Speeds up day-to-day lab operations and pairs naturally with the IaC project (#8) once that's in place, letting an agent inspect actual cluster state rather than working blind.
+
+### 13. Smart Home / Home Assistant (Privacy-First)
+**Description:** Deploy Home Assistant for smart home control at the new apartment, keeping devices local-first: internet/cloud access allowed only when a device's core function requires it (e.g. a service that has no local API), everything else controlled and automated entirely on-network. Segment smart devices per the existing VLAN model instead of flat-networking them, likely landing on Guest/IoT (VLAN 70, `Open Items.md` #11 - not yet built) or a dedicated segment.
+**Benefit:** Extends the lab's default-deny, least-privilege segmentation philosophy into a domain (consumer IoT) that's usually the biggest privacy/security liability in a home network; hands-on Home Assistant + local-first IoT architecture is also a distinct resume-relevant skill from the rest of the homelab work.

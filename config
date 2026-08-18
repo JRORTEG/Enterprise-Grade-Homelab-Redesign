@@ -1,0 +1,5 @@
+Host 10.0.10.12
+    KexAlgorithms +diffie-hellman-group1-sha1
+    HostKeyAlgorithms +ssh-rsa
+    Ciphers aes128-cbc,aes256-cbc
+    MACs +hmac-sha1

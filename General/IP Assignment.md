@@ -19,11 +19,12 @@ Applied uniformly to every `/24` VLAN:
 
 Infrastructure control-plane only. No end-user or application devices.
 
-| Device         | IP         |
-| -------------- | ---------- |
-| pfSense Router | 10.0.10.1  |
-| Proxmox Host   | 10.0.10.10 |
-| Managed Switch | 10.0.10.11 |
+| Device             | IP         |
+| ------------------ | ---------- |
+| pfSense Router     | 10.0.10.1  |
+| Proxmox Host       | 10.0.10.10 |
+| Managed Switch     | 10.0.10.11 |
+| Cisco 2960G Switch | 10.0.10.12 |
 
 **DHCP:** Disabled. Management-plane devices should always be static. A DHCP failure or lease conflict on this VLAN should never be able to lock you out of your own infrastructure.
 
@@ -100,13 +101,24 @@ New VLAN. End-user devices, separated from both management infrastructure and in
 
 ---
 
-## VLAN 70: GUEST / IoT *(future addition, no devices yet)*
+## VLAN 70: GUEST *(future addition, no devices yet)*
 
-Not yet implemented, but planned to complete the segmentation model before adding any smart-home or guest-network devices.
+Not yet implemented, but planned to complete the segmentation model before adding any guest-network devices. Split off from a combined GUEST/IoT VLAN 70 once I decided I wanted IoT on its own dedicated VLAN 80 instead — see below.
 
 - Client isolation enabled (devices cannot see each other).
 - Internet-only egress, no route to any other VLAN.
 - Dynamic pool `.50 – .199` once created, gateway `10.0.70.1`.
+- Wireless: Davolink Minions router, dedicated novelty AP on this VLAN only (access port, not trunked). Full rationale in `Hardware/Access Point/Plan.md`.
+
+---
+
+## VLAN 80: IOT *(new, future addition, no devices yet)*
+
+Split out of the original combined GUEST/IoT VLAN 70 so Trusted, Guest, and IoT wireless traffic each get their own VLAN — see `Hardware/Access Point/Plan.md` for the access point plan that drove this split.
+
+- Client isolation enabled (devices cannot see each other).
+- Internet-only egress, no route to any other VLAN.
+- Dynamic pool `.50 – .199` once created, gateway `10.0.80.1`.
 
 ---
 

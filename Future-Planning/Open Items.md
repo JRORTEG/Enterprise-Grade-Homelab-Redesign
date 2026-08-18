@@ -174,3 +174,38 @@ PBS install landed on VLAN 60 (Trusted Clients), static `10.0.60.15`, not VLAN 1
 
 **Source:** User decision, 2026-08-13.
 **Resolve by:** add a second NIC to the Main PC, assign PBS's interface a static MGMT IP (next open static slot per addressing convention), then update `General/IP Assignment.md`, `VLANs/VLAN_10.md`, `VLANs/VLAN_60.md`, and `MGMT/Proxmox/Backup Solution.md` to match — including retiring the cross-VLAN Proxmox→PBS firewall rule (#18) once PBS and Proxmox share VLAN 10.
+
+## 25. Switch running EOL 2010-era IOS image — needs firmware/security review
+
+Cisco WS-C2960G-24TC-L runs `c2960-lanbasek9-mz.122-50.SE5` (compiled 2010, IOS 12.2(50)SE5). Getting SSH working required forcing my SSH client to accept legacy, deprecated crypto (diffie-hellman-group1-sha1 KEX, aes128-cbc cipher, hmac-sha1 MAC) since the switch doesn't support anything newer — a live weak-crypto exposure on MGMT-plane administration, and the switch itself has been end-of-support since 2011 (`General/Hardware/Hardware Upgrade.md`) so it isn't getting further Cisco security patches at the IOS level either.
+
+**Source:** `Hardware/Switch Upgrade.md`, SSH troubleshooting steps, 2026-08-16.
+**Resolve by:** check Cisco's archive for a later 12.2 SE-train image for this model that supports modern SSH algorithms and install it if one exists; if not, treat this as a known lab-scale limitation of the 2010-era hardware and factor into the next hardware refresh cycle instead of a firmware fix.
+
+## 26. EAP723 power delivery not yet purchased
+
+Cisco 2960G switch has no PoE, so the EAP723 access point needs either a PoE injector or its own DC power adapter (not included in box) to power on. Leaning toward the injector.
+
+**Source:** `Hardware/Access Point/Plan.md`, 2026-08-18.
+**Resolve by:** buy a PoE injector (or the DC adapter as backup) before installing the EAP723.
+
+## 27. Fate of existing "Trusted Access Point" on g0/5 undecided
+
+Once the EAP723 goes live with its own Trusted-Clients SSID, the current AP on switch port `g0/5` (VLAN 60, access) may become redundant — or I might keep it as a dedicated Trusted-only AP for coverage reasons. Not resolved.
+
+**Source:** `Hardware/Access Point/Plan.md`, `Hardware/Cisco Catalyst 2960G/Hardware Upgrade.md`, 2026-08-18.
+**Resolve by:** decide once the EAP723 is installed and I can compare coverage/performance against the existing AP.
+
+## 28. Omada controller choice not finalized
+
+EAP723 needs an Omada controller for full functionality (SSID VLAN mapping, roaming, etc.). Choosing between a free self-hosted Omada Software Controller (container/VM, fits the existing homelab-hosts-everything pattern but is one more thing to patch) and the free Omada Essentials cloud controller (zero infra, but management access depends on TP-Link's cloud being up).
+
+**Source:** `Hardware/Access Point/Plan.md`, 2026-08-18.
+**Resolve by:** decide once actually provisioning the EAP723.
+
+## 29. VLAN 80 (IoT) not yet physically built
+
+`VLANs/VLAN_80.md` is a rules design only, split off from the former combined GUEST/IoT VLAN 70. No pfSense interface, DHCP scope, or switch VLAN database entry exists yet — same status as VLAN 70 was before item #11.
+
+**Source:** `VLANs/VLAN_80.md`, `Hardware/Access Point/Plan.md`, 2026-08-18.
+**Resolve by:** build the VLAN (pfSense interface, DHCP scope, switch VLAN database entry) once the EAP723 is being provisioned, then implement the documented rules.
